@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1062
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "quras-backend", "quras-backend\quras-backend.csproj", "{54ABF884-CCA1-4D26-B52B-C30DD31124CB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{54ABF884-CCA1-4D26-B52B-C30DD31124CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54ABF884-CCA1-4D26-B52B-C30DD31124CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54ABF884-CCA1-4D26-B52B-C30DD31124CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54ABF884-CCA1-4D26-B52B-C30DD31124CB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C12769C9-2A3F-4664-A3D6-A181413901B1}
+	EndGlobalSection
+EndGlobal
