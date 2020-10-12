@@ -18,33 +18,10 @@ Before starting this service, you have to configure the MySQL DB server.
 
 ## Getting started
 
-### Build Environment
+### Runtime Environment
 
-Install .NET Framework 4.7.1 or higher versions. You can download it from https://dotnet.microsoft.com/download/dotnet-framework/net471.
-
-### Installation
-
-Install the package using:
-
-```js
-npm install
-```
-
-### run
-
-```js
-node index.js --run
-```
-
-### Docs
-
-We use Docusaurus for our docs website. The docs are stores in `./docs` while the main website and its configuration is in `./website`.
-
-```bash
-cd website
-npm install
-npm run start
-```
+Install .NET Framework 4.7.1 or higher versions. (Do not require if you are using Windows 10+.)
+You can download it from https://dotnet.microsoft.com/download/dotnet-framework/net471.
 
 ## Configuration
 
@@ -53,23 +30,13 @@ npm run start
 You can configure database connect information in 'config.json'
 
 ```
-"development" : {
-    "database": {
-      "host": "localhost",
-      "user": "root",
-      "password": "",
-      "database": "quras_db"
-    },
-    ... ...
-},
-"production" : {
-    "database": {
-      "host": "localhost",
-      "user": "root",
-      "password": "",
-      "database": "quras_db"
-    },
-    ... ...
+{
+	... ...
+	"DbHost": "127.0.0.1",
+	"DbPort": "3306",
+	"DbUser": "root",
+	"DbPassword": "",
+	"DbName" :  "quras_db"
 }
 ```
 
@@ -78,14 +45,8 @@ You can configure database connect information in 'config.json'
 You can configure node url in 'config.json'.
 
 ```
-"development" : {
-    ... ...
-    "node_url": "http://localhost:8989",
-    ... ...
-},
-"production" : {
-    ... ...
-    "node_url": "http://localhost:8989",
+{
+    "UriPrefix": "https://rpc.quras.io:10030",
     ... ...
 }
 ``` 
