@@ -72,7 +72,9 @@ namespace Quras
 		private string SQL_UPDATE_STORAGE_SIZE = "UPDATE storage_wallets SET current_size = @currentsize WHERE address LIKE @storageaddr";
 		private string SQL_UPDATE_UTXOS = "UPDATE utxos SET status = @status WHERE txid = @txid AND tx_out_index = @txoutindex";
         private string SQL_UPDATE_STORAGE_RATE = "UPDATE storage_wallets SET rate = @rate WHERE address LIKE @address";
-        private string SQL_UPDATE_DB_STATUS = "UPDATE status SET current_block_number = @current_block_number, last_block_time = @last_block_time, block_version = @block_version";
+        private string SQL_UPDATE_DB_STATUS = "UPDATE status SET current_block_number = @current_block_number, last_block_time = @last_block_time";
+        private string SQL_UPDATE_NODE = "UPDATE nodes SET vote = vote + 1 WHERE address = @address";
+        private string SQL_UPDATE_NODES_HEIGHT = "UPDATE nodes SET height = @height";
 
         private MySqlConnection Connection = null;
         private MySqlTransaction MySqlTransaction = null;
@@ -173,6 +175,44 @@ namespace Quras
                 Command.Parameters.AddWithValue("@nextconsensus", block.NextConsensus);
                 Command.Parameters.AddWithValue("@script", block.Script);
                 Command.Parameters.AddWithValue("@txcount", block.TxCount);
+
+                if (Command.ExecuteNonQuery() == -1) throw new Exception("SQL execution failed.");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogUtils.Default.Log(ex.Message + '\n' + ex.StackTrace);
+                return false;
+            }
+        }
+
+        public bool UpdateNodesHeight(Block block)
+        {
+            try
+            {
+                Command.CommandText = SQL_UPDATE_NODES_HEIGHT;
+
+                Command.Parameters.Clear();
+                Command.Parameters.AddWithValue("@height", block.BlockNumber);
+
+                if (Command.ExecuteNonQuery() == -1) throw new Exception("SQL execution failed.");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogUtils.Default.Log(ex.Message + '\n' + ex.StackTrace);
+                return false;
+            }
+        }
+
+        public bool UpdateNodeVote(Block block)
+        {
+            try
+            {
+                Command.CommandText = SQL_UPDATE_NODE;
+
+                Command.Parameters.Clear();
+                Command.Parameters.AddWithValue("@address", block.CurrentConsensus);
 
                 if (Command.ExecuteNonQuery() == -1) throw new Exception("SQL execution failed.");
                 return true;
@@ -1186,6 +1226,11 @@ namespace Quras
 
         public bool RegAssetTransactionOnDB(Block block, InvocationTransaction tx)
         {
+            if (tx.Asset == null)
+            {
+                return true;
+            }
+
             try
             {
                 Command.CommandText = SQL_INSERT_REGISTER_TRANSACTION;
@@ -1347,7 +1392,7 @@ namespace Quras
                 Command.Parameters.Clear();
                 Command.Parameters.AddWithValue("@current_block_number", current_block_num + 1);
                 Command.Parameters.AddWithValue("@last_block_time", block.Time);
-                Command.Parameters.AddWithValue("@block_version", block.Version);
+                //Command.Parameters.AddWithValue("@block_version", block.Version);
 
                 if (Command.ExecuteNonQuery() == -1) throw new Exception("SQL execution failed.");
                 return true;

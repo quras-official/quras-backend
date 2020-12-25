@@ -40,17 +40,6 @@ You can configure database connect information in 'config.json'
 }
 ```
 
-### Node Configuration
-
-You can configure node url in 'config.json'.
-
-```
-{
-    "UriPrefix": "https://rpc.quras.io:10030",
-    ... ...
-}
-``` 
-
 ## Runtime Environment
 |OS Type|Version|
 |---|---|

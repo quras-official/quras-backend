@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Quras.IO.Json;
 
-namespace Quras.Core
+namespace Quras
 {
     class InvocationTransaction : Transaction
     {
@@ -80,7 +80,7 @@ namespace Quras.Core
 
                 ms.Close();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 if (ms != null)
                 {

@@ -70,6 +70,8 @@ namespace Quras
                     }
 
                     if (DBModel.RegBlockDataOnDB(block) == false) throw new Exception("RegBlockDataOnDB function failed.");
+                    if (DBModel.UpdateNodesHeight(block) == false) throw new Exception("RegBlockDataOnDB function failed.");
+                    if (DBModel.UpdateNodeVote(block) == false) throw new Exception("RegBlockDataOnDB function failed.");
 
                     for (int i = 0; i < block.TxCount; i++)
                     {
@@ -254,12 +256,23 @@ namespace Quras
             while (true)
             {
                 Socket mySocket = server.AcceptSocket();
-
-                if (mySocket.Connected)
+                try
                 {
-                    string ret = "OK";
-                    mySocket.Send(Encoding.ASCII.GetBytes("OK"));
+                    if (mySocket.Connected)
+                    {
+                        string ret = "OK";
+                        mySocket.Send(Encoding.ASCII.GetBytes("OK"));
+                    }
                 }
+                catch (Exception ex)
+                {
+                    LogUtils.Default.Log(ex.ToString());
+                    if (mySocket != null && mySocket.Connected)
+                    {
+                        mySocket.Close();
+                    }
+                }
+                
             }
         }
     }
